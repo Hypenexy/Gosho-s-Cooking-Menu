@@ -4,15 +4,18 @@ const categoriesElement = document.getElementsByClassName("categories")[0];
 
 const categories = categoriesElement.getElementsByTagName("div");
 
-search.onfocus = function(){
+search.onfocus = search.onkeydown = function(){
     foreachDelayed(categories, function(item){
         item.classList.add("transition");
     }, 50, true)
 }
-search.onblur = function(){
-    foreachDelayed(categories, function(item){
-        item.classList.remove("transition");
-    }, 50, true)
+
+search.onblur = search.onmouseleave = function(){
+    if(search.value.length == 0){
+        foreachDelayed(categories, function(item){
+            item.classList.remove("transition");
+        }, 50, true)
+    }
 }
 
 function openPage(category){
